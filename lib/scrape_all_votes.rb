@@ -43,9 +43,9 @@ class GetAllVotes
     xml.xpath('//Vopros').each do |v|
        division = {}
        division[:number] =  v.xpath('ID').text
-       date =  v.xpath('Voted').text
-       division[:date_caden] = DateTime.parse(date).strftime('%Y-%m-%d')
-       division[:date_vote] = DateTime.parse(date).strftime('%Y-%m-%d %H:%M:%s')
+       date_text =  v.xpath('Voted').text
+       division[:date_caden] = DateTime.parse(date_text).strftime('%Y-%m-%d')
+       division[:date_vote] = DateTime.parse(date_text).strftime('%Y-%m-%d %H:%M:%s')
        division[:name] = v.xpath('Long').text
        if v.xpath('Result').text == "РІШЕННЯ ПРИЙНЯТО"
          division[:result] = "Прийнято"
