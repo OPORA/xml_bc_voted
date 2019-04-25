@@ -45,7 +45,7 @@ class GetAllVotes
        division[:number] =  v.xpath('ID').text
        date_text =  v.xpath('Voted').text
        division[:date_caden] = DateTime.parse(date_text).strftime('%Y-%m-%d')
-       division[:date_vote] = DateTime.parse(date_text).strftime('%Y-%m-%d %H:%M:%s')
+       division[:date_vote] = date_text
        division[:name] = v.xpath('Long').text
        if v.xpath('Result').text == "РІШЕННЯ ПРИЙНЯТО"
          division[:result] = "Прийнято"
