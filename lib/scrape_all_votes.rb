@@ -1,4 +1,4 @@
-#require_relative 'voted'
+require_relative 'voted'
 require_relative 'get_mps'
 require 'json'
 require 'date'
@@ -41,32 +41,32 @@ class GetAllVotes
     end
 
     xml.xpath('//Vopros').each do |v|
-     division = {}
-     division[:number] =  v.xpath('ID').text
-     date =  v.xpath('Voted').text
-     division[:date_caden] = DateTime.parse(date).strftime('%Y-%m-%d')
-     division[:date_vote] = DateTime.parse(date).strftime('%Y-%m-%d %H:%M:%s')
-     division[:name] = v.xpath('Long').text
-     if v.xpath('Result').text == "РІШЕННЯ ПРИЙНЯТО"
-       division[:result] = "Прийнято"
-     else
-       division[:result] = "Не прийнято"
-     end
-     division[:voted] = []
-     v.xpath('Poimen/Deputat').each do |r|
-       deputy = $all_mp.serch_mp(r.xpath('Name').text)
-       if r.xpath('Golos').text == "Н/Г"
-         if absents.include?(deputy)
-           vote = "absent"
-         else
-           vote = "not_voted"
-         end
+       division = {}
+       division[:number] =  v.xpath('ID').text
+       date =  v.xpath('Voted').text
+       division[:date_caden] = DateTime.parse(date).strftime('%Y-%m-%d')
+       division[:date_vote] = DateTime.parse(date).strftime('%Y-%m-%d %H:%M:%s')
+       division[:name] = v.xpath('Long').text
+       if v.xpath('Result').text == "РІШЕННЯ ПРИЙНЯТО"
+         division[:result] = "Прийнято"
        else
-         vote = short_voted_result(r.xpath('Golos').text)
+         division[:result] = "Не прийнято"
        end
-       division[:voted] << { voter_id: deputy, result: vote }
-     end
-     hash << division
+       division[:voted] = []
+       v.xpath('Poimen/Deputat').each do |r|
+         deputy = $all_mp.serch_mp(r.xpath('Name').text)
+         if r.xpath('Golos').text == "Н/Г"
+           if absents.include?(deputy)
+             vote = "absent"
+           else
+             vote = "not_voted"
+           end
+         else
+           vote = short_voted_result(r.xpath('Golos').text)
+         end
+         division[:voted] << { voter_id: deputy, result: vote }
+       end
+       hash << division
     end
     save_vote(hash)
   end
