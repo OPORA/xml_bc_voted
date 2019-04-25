@@ -100,7 +100,7 @@ class GetAllVotes
         За: "aye",
         "Утр.": "abstain",
     }
-    hash[:"#{result.upcase}"]
+    hash[:"#{result}"]
   end
 end
 #GetAllVotes.new.get_all_votes()
