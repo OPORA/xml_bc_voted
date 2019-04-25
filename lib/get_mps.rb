@@ -10,6 +10,8 @@ class GetMp
      return 6043
    elsif  full_name == "Дикий Геннадій Анатолійович"
      return 6044
+   elsif  full_name == "Олійник Таісія Іванівна"
+     return 6045
    else
      data = @data_hash.find {|k| k["full_name"] == full_name  }
      return data["deputy_id"]
