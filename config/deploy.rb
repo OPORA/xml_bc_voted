@@ -11,8 +11,8 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :domain, 'ruby.oporaua.org'
-set :deploy_to, '/home/csv_vin_voted'
-set :repository, 'git@github.com:OPORA/csv_read_voted_vmr.git'
+set :deploy_to, '/home/xml_bc_voted'
+set :repository, 'git@github.com:OPORA/xml_bc_voted.git'
 set :branch, 'master'
 
 # For system-wide RVM install.
