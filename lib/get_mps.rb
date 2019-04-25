@@ -5,7 +5,7 @@ class GetMp
     @data_hash = JSON.load(open('http://bcmp.oporaua.org/'))
   end
   def serch_mp(full_name)
-     p full_name
+     #p full_name
    if full_name == "Підпалий Сергій Миколайович"
      return 6043
    elsif  full_name == "Дикий Геннадій Анатолійович"

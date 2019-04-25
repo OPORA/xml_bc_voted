@@ -75,10 +75,12 @@ class GetAllVotes
 
        event = VoteEvent.first(name: r[:name], number: r[:number], date_caden: r[:date_caden], date_vote: r[:date_vote], rada_id: 8, option: r[:result])
           if event.nil?
+            p "Create"
             events = VoteEvent.new(name: r[:name], number: r[:number], date_caden:  r[:date_caden],date_vote: r[:date_vote], rada_id: 8, option: r[:result])
             events.date_created = Date.today
             events.save
           else
+            p "update"
             events = event
             events.votes.destroy!
           end
