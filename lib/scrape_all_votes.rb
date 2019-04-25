@@ -76,15 +76,16 @@ class GetAllVotes
        event = VoteEvent.first(name: r[:name], number: r[:number], date_caden: r[:date_caden], date_vote: r[:date_vote], rada_id: 8, option: r[:result])
           if event.nil?
             p "Create"
-            events = VoteEvent.create!(name: r[:name], number: r[:number], date_caden:  r[:date_caden], date_vote: r[:date_vote], rada_id: 8, option: r[:result], date_created: Date.today)
+            division = VoteEvent.create!(name: r[:name], number: r[:number], date_caden:  r[:date_caden], date_vote: r[:date_vote], rada_id: 8, option: r[:result], date_created: Date.today)
+            p division
           else
             p "update"
-            events = event
-            events.votes.destroy!
+            division = event
+            division.votes.destroy!
           end
 
        r[:voted].each do |v|
-           vote = events.votes.new
+           vote = division.votes.new
            vote.voter_id = v[:voter_id]
            vote.result = v[:result]
            vote.save
